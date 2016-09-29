@@ -16,7 +16,7 @@ def connect(user, password, db, host='127.0.0.1', port=5432):
 
 	return con, meta
 
-def add_tables(meta):
+def add_tables(con, meta):
 	slams = Table('slams', meta,
 		Column('name', String, primary_key = True),
 		Column('country', String)
@@ -27,8 +27,9 @@ def add_tables(meta):
 		Column('year', Integer),
 		Column('result', String)
 	)
+	meta.create_all(con)
 
-def add_records(meta, con):
+def add_records(con, meta):
 	candidates = [
 		{'name': 'Wimbledon', 'country': 'United Kingdom'},
 		{'name': 'Roland Garros', 'country': 'France'}
